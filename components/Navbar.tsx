@@ -1,10 +1,9 @@
 
 import React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
   const location = useLocation();
-  const navigate = useNavigate();
 
   const isLinkActive = (path: string) => location.pathname === path;
 
@@ -15,9 +14,6 @@ const Navbar: React.FC = () => {
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
-    } else {
-      // Si estamos en otra página, navegamos al home y dejamos que el navegador maneje el hash
-      // O podríamos navegar y luego hacer scroll una vez cargado, pero el enlace simple funciona para Home
     }
   };
 
@@ -33,15 +29,17 @@ const Navbar: React.FC = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex justify-center py-6 px-4">
-      <nav className="max-w-6xl w-full bg-white/70 backdrop-blur-xl border border-white/50 px-4 md:px-8 h-16 flex items-center justify-between shadow-sm rounded-full">
-        <Link to="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 bg-[#137fec] rounded-full flex items-center justify-center transition-transform group-hover:rotate-12">
-            <span className="material-symbols-outlined text-white text-lg">all_inclusive</span>
-          </div>
-          <span className="font-bold text-lg tracking-tight text-[#137fec]">SincroHealth AI</span>
+      {/* Se aumenta la altura del nav de h-16 a h-28 o h-32 para permitir que el logo x2 luzca imponente */}
+      <nav className="max-w-6xl w-full bg-white/70 backdrop-blur-xl border border-white/50 px-6 md:px-10 h-24 md:h-32 flex items-center justify-between shadow-sm rounded-[40px] md:rounded-full">
+        <Link to="/" className="flex items-center group">
+          <img 
+            src="https://ddnnmcfbgqnhcuozurio.supabase.co/storage/v1/object/public/sincrohealth/logos/isotipo.webp" 
+            alt="SincroHealth AI" 
+            className="h-20 md:h-24 w-auto transition-transform group-hover:scale-105"
+          />
         </Link>
         
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-10">
           <Link to="/" className={`text-[10px] uppercase tracking-widest font-semibold transition-colors hover:text-[#137fec] ${isLinkActive('/') ? 'text-[#137fec]' : 'text-[#8D8273]'}`}>Inicio</Link>
           <a 
             href="/#caos" 
@@ -69,7 +67,7 @@ const Navbar: React.FC = () => {
         <a 
           href="/#registro" 
           onClick={handleRegisterClick}
-          className="bg-[#137fec] text-white px-6 py-2 rounded-full text-sm font-semibold hover:bg-blue-600 transition-all shadow-lg shadow-blue-500/20 active:scale-95"
+          className="bg-[#137fec] text-white px-8 py-3 rounded-full text-sm font-semibold hover:bg-blue-600 transition-all shadow-lg shadow-blue-500/20 active:scale-95"
         >
           Registro
         </a>
