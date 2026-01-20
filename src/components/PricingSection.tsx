@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { supabase } from '../lib/supabase'; // Import the supabase client
 
 const plans = [
   {
+    id: "sincro-starter",
     name: "SINCRO-STARTER",
     price: "$79 USD",
     priceUnit: "/mes",
@@ -22,6 +24,7 @@ const plans = [
     isRecommended: false
   },
   {
+    id: "sincro-pro",
     name: "SINCRO-PRO",
     price: "$199 USD",
     priceUnit: "/mes",
@@ -40,6 +43,7 @@ const plans = [
     isRecommended: true
   },
   {
+    id: "sincro-enterprise",
     name: "SINCRO-ENTERPRISE",
     price: "Cotización",
     priceUnit: "Personalizada",
@@ -96,6 +100,44 @@ const FeatureItem: React.FC<FeatureItemProps> = ({ title, description }) => {
 
 
 const PricingSection: React.FC = () => {
+
+  const handleCTAClick = async (e: React.MouseEvent<HTMLAnchorElement>, source: string) => { // Added async
+    e.preventDefault();
+
+    // Supabase insert for Interacciones
+    try {
+      const { data, error } = await supabase
+        .from('Interacciones')
+        .insert([
+          { boton_id: source, seccion: 'planes', fecha: new Date().toISOString() },
+        ]);
+      if (error) {
+        console.error('Error al insertar interacción en Supabase:', error);
+      } else {
+        console.log('Interacción registrada en Supabase:', data);
+      }
+    } catch (error) {
+      console.error('Error en la conexión a Supabase para interacciones:', error);
+    }
+
+    const targetUrl = new URL(window.location.href);
+    targetUrl.searchParams.set('source', source);
+    window.history.pushState({ path: targetUrl.href }, '', targetUrl.href);
+
+    console.log('EVENT: CTA_CLICK', {
+        event_category: 'Pricing',
+        event_label: source,
+    });
+
+    const registrationSection = document.getElementById('registro');
+    if (registrationSection) {
+      registrationSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   return (
     <div className="max-w-7xl mx-auto">
         <div className="text-center mb-20">
@@ -150,7 +192,10 @@ const PricingSection: React.FC = () => {
                           )}
                     </div>
                     
-                    <a href="#registro" className={`w-full mt-auto py-3 px-6 rounded-full font-semibold text-center transition-all text-sm ${
+                    <a 
+                        href="#registro"
+                        onClick={(e) => handleCTAClick(e, plan.id)}
+                        className={`w-full mt-auto py-3 px-6 rounded-full font-semibold text-center transition-all text-sm ${
                         plan.isRecommended 
                         ? 'bg-[var(--sincro-blue)] text-white hover:bg-blue-600 shadow-lg shadow-blue-500/20'
                         : plan.name === 'SINCRO-ENTERPRISE' 

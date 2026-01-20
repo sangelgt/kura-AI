@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import ContactForm from '../components/ContactForm';
 import AnimatedPhone from '../components/AnimatedPhone';
 import PricingSection from '../components/PricingSection';
+import { supabase } from '../lib/supabase'; // Import supabase
 
 const chaosCards = [
   { icon: 'air', title: 'Recuperar el aliento', description: 'Diga adiós al Burnout. Eliminamos el ruido administrativo para que su equipo vuelva a conectar con el propósito de sanar.' },
@@ -51,6 +52,54 @@ const LandingPage: React.FC = () => {
     }
   }, [location.hash]);
 
+  const handleScroll = (id: string) => {
+    const target = document.getElementById(id.replace('#', ''));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+      window.history.pushState(null, '', `/#${id.replace('#', '')}`);
+    }
+  };
+
+  const handleCTAClick = async (e: React.MouseEvent<HTMLAnchorElement>, source: string, seccion: string) => { // Added seccion parameter
+    e.preventDefault();
+    
+    const targetUrl = new URL(window.location.href);
+    targetUrl.searchParams.set('source', source);
+    window.history.pushState({ path: targetUrl.href }, '', targetUrl.href);
+    
+    // Supabase insert for Interacciones
+    console.log("Insertando en:", 'Interacciones'); // Added console.log
+    try {
+      const { data, error } = await supabase
+        .from('Interacciones')
+        .insert([
+          { boton_id: source, seccion: seccion, fecha: new Date().toISOString() }, // Using seccion parameter
+        ]);
+      if (error) {
+        console.error('Error al insertar interacción en Supabase:', error);
+        alert('Hubo un problema al registrar tu interés. Por favor, inténtalo de nuevo más tarde.'); // User-friendly error message
+      } else {
+        console.log('Interacción registrada en Supabase:', data);
+      }
+    } catch (error) {
+      console.error('Error en la conexión a Supabase para interacciones:', error);
+      alert('No se pudo conectar con el servicio. Por favor, verifica tu conexión a internet.'); // User-friendly connection error
+    }
+
+    console.log('EVENT: CTA_CLICK', {
+        event_category: seccion, // Using seccion for category
+        event_label: source,
+    });
+    
+    const registrationSection = document.getElementById('registro');
+    if (registrationSection) {
+      registrationSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   return (
     <div className="text-slate-800 premium-gradient">
 
@@ -65,17 +114,28 @@ const LandingPage: React.FC = () => {
                     Elevando la gestión médica hacia una experiencia de serenidad y rentabilidad sincronizada.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                    <a className="cta-button bg-[var(--sincro-blue)] text-white text-lg font-medium hover:scale-105 shadow-2xl shadow-blue-500/30 text-center" href="#registro">
+                    <a 
+                        className="cta-button bg-[var(--sincro-blue)] text-white text-lg font-medium hover:scale-105 shadow-2xl shadow-blue-500/30 text-center"
+                        href="#registro"
+                        onClick={(e) => handleCTAClick(e, 'hero', 'Hero')} // Passed 'Hero' as seccion
+                    >
                         Solicitar Prueba Gratuita
                     </a>
-                    <a className="text-[var(--taupe)] font-semibold flex items-center gap-2 hover:translate-x-1 transition-transform" href="#solucion">
+                    <a 
+                        className="text-[var(--taupe)] font-semibold flex items-center gap-2 hover:translate-x-1 transition-transform" 
+                        href="#ia-humana"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            handleScroll('#ia-humana');
+                        }}
+                    >
                         Conoce nuestra IA Humana <span className="material-symbols-outlined">arrow_forward</span>
                     </a>
                 </div>
             </div>
         </section>
 
-        <section className="py-32 px-6" id="caos">
+        <section id="desafio" className="py-32 px-6">
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-24">
                     <h2 className="text-4xl md:text-5xl font-light text-slate-900 mb-6">Equilibrio <span className="text-[var(--taupe)]">vs</span> Caos</h2>
@@ -95,14 +155,14 @@ const LandingPage: React.FC = () => {
             </div>
         </section>
 
-        <section className="py-32 bg-white/50" id="solucion">
+        <section id="ia-humana" className="py-32 bg-white/50">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="grid lg:grid-cols-2 gap-20 items-center">
                     <div>
                         <h2 className="text-4xl md:text-5xl font-light text-slate-900 mb-8 leading-tight">La IA que se siente <br/><span className="italic text-[var(--sincro-blue)]">naturalmente</span> humana.</h2>
                         <div className="space-y-12">
                             {solutions.map((item) => (
-                                <motion.div className="flex gap-6" key={item.id} initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} viewport={{ once: true }}>
+                                <motion.div key={item.id} className="flex gap-6" initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} viewport={{ once: true }}>
                                     <div className="flex-shrink-0 w-12 h-12 rounded-full border border-[var(--sincro-blue)]/20 flex items-center justify-center"><span className="text-[var(--sincro-blue)] font-bold">{item.id}</span></div>
                                     <div>
                                         <h4 className="text-xl font-semibold mb-2">{item.title}</h4>
@@ -117,16 +177,16 @@ const LandingPage: React.FC = () => {
                             <motion.div key={index} className="w-full max-w-[340px] h-[220px] rounded-2xl shadow-lg overflow-hidden" initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: index * 0.1 }} viewport={{ once: true }} whileHover={{ scale: 1.05, zIndex: 50}} style={{ zIndex: 30 - index * 10, transform: `translateX(${(index - 1) * -2}rem)` }}>
                                 <img src={src} className="w-full h-full object-cover" alt={`Solución ${index + 1}`} />
                             </motion.div>
-                        ))}
+                        ))}\
                     </div>
                 </div>
             </div>
         </section>
       
-        <section className="py-32 px-6" id="beneficios">
+        <section id="metricas" className="py-32 px-6">
             <div className="max-w-7xl mx-auto">
                 <div className="organic-card p-12 md:p-20 bg-slate-50 text-[var(--deep-navy)] relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-[60%] h-full bg-blue-600/5 blur-[120px]"></div>
+                    <div className="absolute top-0 right-0 w-[60%] h-[60%] bg-blue-600/5 blur-[120px]"></div>
                     <div className="relative z-10 grid lg:grid-cols-2 gap-16 items-center">
                         <div>
                             <h2 className="text-4xl md:text-5xl font-light mb-8 leading-tight text-[var(--deep-navy)]">Métricas que inspiran <br/><span className="text-[var(--sincro-blue)]">tranquilidad</span></h2>
@@ -138,7 +198,7 @@ const LandingPage: React.FC = () => {
                                         <p className="text-xs text-[var(--deep-navy)] uppercase tracking-widest font-bold">{metric.label}</p>
                                         <p className="text-[10px] text-[var(--deep-navy)] mt-2">{metric.sublabel}</p>
                                     </div>
-                                ))}
+                                ))}\
                             </div>
                         </div>
                         <div className="flex justify-center items-center">
@@ -148,12 +208,12 @@ const LandingPage: React.FC = () => {
                 </div>
             </div>
         </section>
-
-        <section className="py-32 px-6" id="planes">
-            <PricingSection />
+            
+        <section id="planes" className="py-32 px-6">
+            <PricingSection handleCTAClick={handleCTAClick} />
         </section>
 
-        <section className="py-32 px-6" id="registro">
+        <section id="registro" className="py-32 px-6">
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-16">
                     <h2 className="text-4xl md:text-5xl font-light text-slate-900 mb-6 tracking-tight">Recupere la rentabilidad y el control de su clínica hoy</h2>
@@ -169,7 +229,7 @@ const LandingPage: React.FC = () => {
                                     <p className="text-sm text-[var(--taupe)]">{benefit.description}</p>
                                 </div>
                             </div>
-                        ))}
+                        ))}\
                         <div className="mt-8 p-6 rounded-[40px] border border-blue-100 bg-blue-50/30">
                             <p className="text-[var(--taupe)] text-sm italic leading-relaxed">"La integración con SincroHealth nos permitió recuperar el enfoque clínico en menos de una semana. La carga administrativa simplemente desapareció."</p>
                             <div className="mt-4 flex items-center gap-3">

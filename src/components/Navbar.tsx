@@ -1,100 +1,153 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Dialog } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
-const navLinks = [
-  { id: 'hero', title: 'Inicio' },
-  { id: 'caos', title: 'El Desafío' },
-  { id: 'solucion', title: 'IA Humana' },
-  { id: 'beneficios', title: 'Métricas' },
-  { id: 'planes', title: 'Planes' },
+// Definición de tipos para las rutas de navegación
+interface NavRoute {
+  name: string;
+  href: string; // This will be the full hash link, e.g., '#hero'
+  targetId: string; // ID del elemento objetivo para hash links, e.g., 'hero'
+}
+
+// Rutas de navegación principales
+const navRoutes: NavRoute[] = [
+  { name: "INICIO", href: "#hero", targetId: "hero" },
+  { name: "EL DESAFÍO", href: "#desafio", targetId: "desafio" },
+  { name: "IA HUMANA", href: "#ia-humana", targetId: "ia-humana" },
+  { name: "MÉTRICAS", href: "#metricas", targetId: "metricas" },
+  { name: "PLANES", href: "#planes", targetId: "planes" },
 ];
 
-const Navbar: React.FC = () => {
+const Navbar = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
-  const [activeSection, setActiveSection] = useState('hero');
-  const isHomePage = location.pathname === '/';
+  // isHomePage is determined by the pathname being exactly "/" (root of the application)
+  // This variable is no longer strictly necessary for handleNavClick but kept for potential future use or context.
+  // const isHomePage = location.pathname === "/";
 
+  // Efecto para cerrar el menú móvil si la ruta cambia
   useEffect(() => {
-    if (!isHomePage) {
-      setActiveSection('');
-      return;
-    }
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { rootMargin: '-40% 0px -60% 0px' } 
-    );
-
-    const sections = document.querySelectorAll('section[id]');
-    sections.forEach((section) => observer.observe(section));
-
-    return () => {
-      sections.forEach((section) => observer.unobserve(section));
-    };
-  }, [isHomePage]);
-
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+  // Maneja el clic en los enlaces de navegación para smooth scroll y hash update
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    targetId: string
+  ) => {
     e.preventDefault();
-    if (isHomePage) {
-      const element = document.getElementById(id);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-        window.history.pushState(null, '', `#${id}`);
-      }
-    } else {
-      navigate(`/#${id}`);
-    }
-  };
+    setMobileMenuOpen(false); // Close mobile menu on click
 
-  const handleHomeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (isHomePage) {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        window.history.pushState(null, '', ' ');
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      window.history.pushState(null, '', `/#/${targetId}`);
     }
-    // If not on home page, the Link component will handle navigation to '/'
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center py-4 px-4">
-      <nav className="max-w-6xl w-full bg-white/70 backdrop-blur-xl border border-white/50 px-8 h-20 flex items-center justify-between shadow-sm rounded-full">
-        <Link to="/" className="flex items-center" onClick={handleHomeClick}>
-            <img 
-                src="https://ddnnmcfbgqnhcuozurio.supabase.co/storage/v1/object/public/sincrohealth/logos/isotipo.webp" 
-                alt="SincroHealth AI Isotipo" 
-                className="h-12 object-contain p-0 m-0"
+    <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-7xl rounded-[40px] bg-white/70 backdrop-blur-md shadow-lg p-6 lg:px-8">
+      <nav
+        className="flex items-center justify-between"
+        aria-label="Global"
+      >
+        <div className="flex lg:flex-1">
+          <Link to="/" className="-m-1.5 p-1.5">
+            <span className="sr-only">SincroHealth AI</span>
+            <img
+              className="h-8 w-auto"
+              src="https://ddnnmcfbgqnhcuozurio.supabase.co/storage/v1/object/public/sincrohealth/logos/isotipo.webp"
+              alt="SincroHealth AI Logo"
             />
-        </Link>
-        
-        <div className="hidden md:flex items-center gap-8">
-            {navLinks.map(link => (
-                <a 
-                    key={link.id}
-                    href={isHomePage ? `#${link.id}` : `/#${link.id}`}
-                    onClick={(e) => handleNavClick(e, link.id)}
-                    className={`nav-link hover:text-[var(--sincro-blue)] transition-colors ${
-                        activeSection === link.id && isHomePage ? 'text-[var(--sincro-blue)]' : 'text-[var(--taupe)]'
-                    }`}>
-                    {link.title}
-                </a>
-            ))}
+          </Link>
         </div>
-        
-        <a 
-          href={isHomePage ? "#registro" : "/#registro"}
-          onClick={(e) => handleNavClick(e, 'registro')}
-          className="bg-[var(--sincro-blue)] text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-blue-600 transition-all shadow-lg shadow-blue-500/20 whitespace-nowrap"
-        >
-          Solicitar Prueba Gratuita
-        </a>
+        <div className="flex lg:hidden">
+          <button
+            type="button"
+            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+            onClick={() => setMobileMenuOpen(true)}
+          >
+            <span className="sr-only">Abrir menú principal</span>
+            <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+          </button>
+        </div>
+        <div className="hidden lg:flex lg:gap-x-12">
+          {navRoutes.map((route) => (
+            <a
+              key={route.name}
+              href={route.href}
+              onClick={(e) => handleNavClick(e, route.targetId)}
+              className="text-sm font-semibold leading-6 text-gray-900"
+            >
+              {route.name}
+            </a>
+          ))}
+        </div>
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+          <a
+            href="#registro"
+            onClick={(e) => handleNavClick(e, "registro")}
+            className="rounded-full bg-[#137fec] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#137fec]"
+          >
+            Solicitar Prueba Gratuita
+          </a>
+        </div>
       </nav>
+      {/* Mobile Menu */}
+      <Dialog
+        as="div"
+        className="lg:hidden"
+        open={mobileMenuOpen}
+        onClose={setMobileMenuOpen}
+      >
+        <div className="fixed inset-0 z-50" />
+        <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+          <div className="flex items-center justify-between">
+            <Link to="/" className="-m-1.5 p-1.5">
+              <span className="sr-only">SincroHealth AI</span>
+              <img
+                className="h-8 w-auto"
+                src="https://ddnnmcfbgqnhcuozurio.supabase.co/storage/v1/object/public/sincrohealth/logos/isotipo.webp"
+                alt="SincroHealth AI Logo"
+              />
+            </Link>
+            <button
+              type="button"
+              className="-m-2.5 rounded-md p-2.5 text-gray-700"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <span className="sr-only">Cerrar menú</span>
+              <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+            </button>
+          </div>
+          <div className="mt-6 flow-root">
+            <div className="-my-6 divide-y divide-gray-500/10">
+              <div className="space-y-2 py-6">
+                {navRoutes.map((route) => (
+                  <a
+                    key={route.name}
+                    href={route.href}
+                    onClick={(e) => handleNavClick(e, route.targetId)}
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    {route.name}
+                  </a>
+                ))}
+              </div>
+              <div className="py-6">
+                <a
+                  href="#registro"
+                  onClick={(e) => handleNavClick(e, "registro")}
+                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                >
+                  Solicitar Prueba Gratuita
+                </a>
+              </div>
+            </div>
+          </div>
+        </Dialog.Panel>
+      </Dialog>
     </header>
   );
 };
