@@ -20,9 +20,9 @@ const solutions = [
 ];
 
 const solutionImages = [
-    {src: "https://ddnnmcfbgqnhcuozurio.supabase.co/storage/v1/object/public/sincrohealth/solucion%201%20.webp", width: 340, height: 220},
-    {src: "https://ddnnmcfbgqnhcuozurio.supabase.co/storage/v1/object/public/sincrohealth/solucion2%20(1).webp", width: 340, height: 220},
-    {src: "https://ddnnmcfbgqnhcuozurio.supabase.co/storage/v1/object/public/sincrohealth/solucion%203.webp", width: 340, height: 220}
+    {src: "https://ddnnmcfbgqnhcuozurio.supabase.co/storage/v1/object/public/kura/solucion%201%20.webp", width: 340, height: 220},
+    {src: "https://ddnnmcfbgqnhcuozurio.supabase.co/storage/v1/object/public/kura/solucion2%20(1).webp", width: 340, height: 220},
+    {src: "https://ddnnmcfbgqnhcuozurio.supabase.co/storage/v1/object/public/kura/solucion%203.webp", width: 340, height: 220}
 ];
 
 const metrics = [
@@ -73,7 +73,7 @@ const LandingPage: React.FC = () => {
            {/* Fondo de pantalla completa ESTÁTICO */}
             <img
                 className="absolute inset-0 w-full h-full object-cover -z-10"
-                src="https://ddnnmcfbgqnhcuozurio.supabase.co/storage/v1/object/public/sincrohealth/baner%20/%20fondos%20/banner.webp"
+                src="https://ddnnmcfbgqnhcuozurio.supabase.co/storage/v1/object/public/kura/baner%20/%20fondos%20/banner.webp"
                 alt="Fondo Kura AI"
             />
            <div className="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] bg-blue-100/30 rounded-full blur-[120px]"></div>
@@ -187,7 +187,7 @@ const LandingPage: React.FC = () => {
 
         <section id="registro" className="relative min-h-screen flex items-center py-20 px-6">
             <img
-              src="https://ddnnmcfbgqnhcuozurio.supabase.co/storage/v1/object/public/sincrohealth/baner%20/%20fondos%20/Fondo%20de%20Dashboard.webp"
+              src="https://ddnnmcfbgqnhcuozurio.supabase.co/storage/v1/object/public/kura/baner%20/%20fondos%20/Fondo%20de%20Dashboard.webp"
               alt="Fondo Dashboard Kura AI"
               className="absolute inset-0 w-full h-full object-cover -z-20 opacity-100"
             />
