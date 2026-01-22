@@ -231,14 +231,14 @@ const LandingPage: React.FC = () => {
         <section id="registro" className="relative min-h-screen flex items-center py-20 px-6">
             <img
               src="https://ddnnmcfbgqnhcuozurio.supabase.co/storage/v1/object/public/sincrohealth/baner%20/%20fondos%20/Fondo%20de%20Dashboard.webp"
-              alt="Fondo Dashboard SincroHealth"
+              alt="Fondo Dashboard Kura AI"
               className="absolute inset-0 w-full h-full object-cover -z-20 opacity-100"
             />
             
             <div className="max-w-7xl mx-auto relative z-10">
                 <div className="text-center mb-16">
                     <h2 className="text-4xl md:text-5xl font-light text-white mb-6 tracking-tight">Recupere la rentabilidad y el control de su clínica hoy</h2>
-                    <p className="text-white/90 font-light max-w-3xl mx-auto text-lg leading-relaxed">Sincronice sus operaciones y elimine la carga administrativa de forma inmediata. Obtenga un diagnóstico personalizado de su flujo de trabajo.</p>
+                    <p className="text-white/90 font-light max-w-3xl mx-auto text-lg leading-relaxed">Recupera el control de tu clínica, libera tu tiempo y optimiza tus recursos con la inteligencia artificial de Kura.</p>
                 </div>
                 <div className="grid lg:grid-cols-12 gap-12 items-start">
                     <div className="lg:col-span-5 space-y-6 pt-4">
