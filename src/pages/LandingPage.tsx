@@ -61,44 +61,9 @@ const LandingPage: React.FC = () => {
     }
   };
 
-  const handleCTAClick = async (e: React.MouseEvent<HTMLAnchorElement>, source: string, seccion: string) => { // Added seccion parameter
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
-    
-    const targetUrl = new URL(window.location.href);
-    targetUrl.searchParams.set("source", source);
-    window.history.pushState({ path: targetUrl.href }, "", targetUrl.href);
-    
-    // Supabase insert for Interacciones
-    console.log("Insertando en:", "Interacciones"); // Added console.log
-    try {
-      const { data, error } = await supabase
-        .from("Interacciones")
-        .insert([
-          { boton_id: source, seccion: seccion, fecha: new Date().toISOString() }, // Using seccion parameter
-        ]);
-      if (error) {
-        console.error("Error al insertar interacción en Supabase:", error);
-        alert("Hubo un problema al registrar tu interés. Por favor, inténtalo de nuevo más tarde."); // User-friendly error message
-      } else {
-        console.log("Interacción registrada en Supabase:", data);
-      }
-    } catch (error) {
-      console.error("Error en la conexión a Supabase para interacciones:", error);
-      alert("No se pudo conectar con el servicio. Por favor, verifica tu conexión a internet."); // User-friendly connection error
-    }
-
-    console.log("EVENT: CTA_CLICK", {
-        event_category: seccion, // Using seccion for category
-        event_label: source,
-    });
-    
-    const registrationSection = document.getElementById("registro");
-    if (registrationSection) {
-      registrationSection.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    }
+    handleScroll(id);
   };
 
   return (
@@ -113,8 +78,8 @@ const LandingPage: React.FC = () => {
             />
            <div className="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] bg-blue-100/30 rounded-full blur-[120px]"></div>
             <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-orange-50/50 rounded-full blur-[100px]"></div>
-            <div className="max-w-5xl mx-auto px-6 relative z-10"> {/* Modified: Removed text-center class from this div */}
-                <div className="bg-white/40 backdrop-blur-md rounded-3xl border border-white/30 shadow-2xl p-8 md:p-12 max-w-4xl mx-auto text-center"> {/* New glassmorphism card */}
+            <div className="max-w-5xl mx-auto px-6 relative z-10">
+                <div className="bg-white/40 backdrop-blur-md rounded-3xl border border-white/30 shadow-2xl p-8 md:p-12 max-w-4xl mx-auto text-center">
                     <h1 className="hero-title text-5xl md:text-7xl font-light text-slate-900 mb-6">
                         Transforme su clínica con <span className="font-semibold text-[var(--sincro-blue)]">Kura AI</span>
                     </h1>
@@ -122,27 +87,19 @@ const LandingPage: React.FC = () => {
                         Elevando la gestión médica hacia una experiencia de serenidad y rentabilidad sincronizada.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                        <a 
-                            className="cta-button bg-[var(--sincro-blue)] text-white text-lg font-medium hover:scale-105 shadow-2xl shadow-blue-500/30 text-center"
-                            href="#registro"
-                            onClick={(e) => handleCTAClick(e, "hero", "Hero")} // Passed "Hero" as seccion
-                            aria-label="Solicitar Prueba Gratuita de Kura AI"
-                        >
+                        <a href="#registro" className="cta-button bg-[var(--sincro-blue)] text-white text-lg font-medium hover:scale-105 shadow-2xl shadow-blue-500/30 text-center" onClick={(e) => handleNavClick(e, 'registro')}>
                             Solicitar Prueba Gratuita
                         </a>
                         <a 
                             className="text-[var(--taupe)] font-semibold flex items-center gap-2 hover:translate-x-1 transition-transform" 
                             href="#ia-humana"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                handleScroll("#ia-humana");
-                            }}
+                            onClick={(e) => handleNavClick(e, "ia-humana")}
                             aria-label="Conocer más sobre la IA Humana de Kura"
                         >
                             Conoce nuestra IA Humana <span className="material-symbols-outlined">arrow_forward</span>
                         </a>
                     </div>
-                </div> {/* End of new glassmorphism card */}
+                </div>
             </div>
         </section>
 
@@ -238,7 +195,7 @@ const LandingPage: React.FC = () => {
             <div className="max-w-7xl mx-auto relative z-10">
                 <div className="text-center mb-16">
                     <h2 className="text-4xl md:text-5xl font-light text-white mb-6 tracking-tight">Recupere la rentabilidad y el control de su clínica hoy</h2>
-                    <p className="text-white/90 font-light max-w-3xl mx-auto text-lg leading-relaxed">Recupera el control de tu clínica, libera tu tiempo y optimiza tus recursos con la inteligencia artificial de Kura.</p>
+                    <p className="text-white font-light max-w-3xl mx-auto text-lg leading-relaxed">Recupera el control de tu clínica, libera tu tiempo y optimiza tus recursos con la inteligencia artificial de Kura.</p>
                 </div>
                 <div className="grid lg:grid-cols-12 gap-12 items-start">
                     <div className="lg:col-span-5 space-y-6 pt-4">
@@ -252,7 +209,7 @@ const LandingPage: React.FC = () => {
                             </div>
                         ))}
                         <div className="mt-8 p-6 rounded-[40px] border border-blue-100 bg-black/60 backdrop-blur-sm">
-                            <p className="text-white text-sm italic leading-relaxed">"La integración con Kura nos permitió recuperar el enfoque clínico en menos de una semana. La carga administrativa simplemente desapareció."</p>
+                            <p className="text-white/80 text-sm italic leading-relaxed">"La integración con Kura nos permitió recuperar el enfoque clínico en menos de una semana. La carga administrativa simplemente desapareció."</p>
                             <div className="mt-4 flex items-center gap-3">
                                 <div className="w-8 h-8 rounded-full bg-slate-200"></div>
                                 <span className="text-xs font-bold text-white">Dr. M. Arrieta, Director Médico</span>
