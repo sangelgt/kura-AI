@@ -1,0 +1,23 @@
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin-allow-popups"
+        }
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "headers": { "cache-control": "s-maxage=31536000, stale-while-revalidate" },
+      "continue": true
+    }
+  ],
+  "redirects": [
+    { "source": "/(.*)", "destination": "https://kuraai.vercel.app/$1", "permanent": true }
+  ]
+}

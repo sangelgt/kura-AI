@@ -1,148 +1,70 @@
-/* === Directivas Fundamentales de Tailwind CSS === */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* === Definición de Tokens de Diseño y Tipografías === */
-@layer base {
-  :root {
-    --sincro-blue: #137fec;
-    --cream: #FDFBF7;
-    --taupe: #756A5A; /* Ajustado para WCAG AA */
-    --deep-navy: #0A192F;
-    --medical-green: #e8f5e9;
-    --soft-shadow: 0 20px 50px -12px rgba(141, 130, 115, 0.15);
-    --organic-radius: 60px;
-    --clay-shadow: inset 10px 10px 20px rgba(255, 255, 255, 0.5), 10px 10px 30px rgba(141, 130, 115, 0.1);
-    --clay-shadow-premium: inset 2px 2px 5px rgba(255,255,255,0.7), 8px 8px 20px rgba(0,0,0,0.05);
-  }
-  body {
-    font-family: 'Outfit', sans-serif;
-    background-color: var(--cream);
-    letter-spacing: 0.02em;
-  }
-  html {
-    scroll-behavior: smooth;
-  }
-
-  /* Optimización de carga de fuentes */
-  @font-face {
-    font-family: 'Outfit';
-    font-style: normal;
-    font-weight: 300 700;
-    font-display: swap;
-    src: url(https://fonts.gstatic.com/s/outfit/v11/QGYvz_MVcBeNP4NJtEtq.p.woff2) format('woff2');
-  }
-
-  @font-face {
-    font-family: 'Playfair Display';
-    font-style: normal;
-    font-weight: 400 700;
-    font-display: swap;
-    src: url(https://fonts.gstatic.com/s/playfairdisplay/v30/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWMI.woff2) format('woff2');
-  }
-
-  @font-face {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 300 600;
-    font-display: swap;
-    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7.woff2) format('woff2');
-  }
-
-}
-
-/* === Clases de Componentes Personalizados === */
-@layer components {
-  .font-montserrat { font-family: 'Montserrat', sans-serif; }
-  .font-inter { font-family: 'Inter', sans-serif; }
-  
-  .organic-card {
-    @apply bg-white transition-all duration-500 border border-taupe/5;
-    border-radius: var(--organic-radius);
-    box-shadow: var(--soft-shadow);
-  }
-  .organic-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 30px 60px -15px rgba(141, 130, 115, 0.25);
-  }
-  
-  .clay-card {
-    @apply bg-white/70 border border-white/80 transition-all duration-300;
-    backdrop-filter: blur(10px);
-    border-radius: 48px;
-    box-shadow: var(--clay-shadow);
-  }
-  .clay-card:hover {
-    transform: scale(1.02);
-    background: rgba(255, 255, 255, 0.9);
-  }
-
-  .feature-cluster-card {
-    @apply rounded-[28px] p-6 transition-all duration-300 border border-white/40 cursor-pointer;
-    box-shadow: var(--clay-shadow-premium);
-  }
-  .feature-cluster-card:hover {
-    transform: scale(1.05) translateX(10px);
-    z-index: 50;
-  }
-
-  .glass-icon-container {
-      @apply relative w-20 h-20 flex items-center justify-center bg-white/40 border border-white/80;
-      backdrop-filter: blur(8px);
-      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-      box-shadow: inset 0 0 15px rgba(19, 127, 236, 0.1);
-  }
-
-  .premium-gradient {
-    background: radial-gradient(circle at top right, rgba(19, 127, 236, 0.05), transparent),
-                radial-gradient(circle at bottom left, rgba(141, 130, 115, 0.05), transparent);
-  }
-
-  .nav-link {
-    @apply uppercase text-xs font-semibold tracking-widest text-taupe;
-  }
-
-  .hero-title {
-    @apply tracking-tight leading-tight;
-  }
-
-  .cta-button {
-    @apply rounded-[40px] py-5 px-10 transition-all duration-300 tracking-wider;
-  }
-
-  .check-item {
-    @apply flex items-center gap-4 p-4 bg-white rounded-[20px] border border-taupe/5;
-    box-shadow: 0 4px 15px rgba(141, 130, 115, 0.05);
-  }
-
-  /* === Estilos Mockup Teléfono === */
-  .phone-parent {
-      @apply w-[290px] h-[580px] p-3 bg-gray-900 rounded-[50px] shadow-2xl relative mx-auto border-4 border-gray-800;
-      box-shadow: 0 50px 100px -20px rgba(0,0,0,0.3);
-  }
-  .phone-card-int {
-      @apply w-full h-full bg-white rounded-[38px] overflow-hidden relative;
-  }
-  .phone-btn { @apply w-1 h-10 bg-gray-700 absolute left-[-7px] rounded-l-md; }
-  .phone-btn.btn1 { top: 100px; }
-  .phone-btn.btn2 { top: 150px; }
-  .phone-btn.btn3 { top: 200px; }
-  .phone-btn.btn4 { @apply left-auto right-[-7px] top-[150px] h-16 rounded-l-none rounded-r-md; }
-  .phone-top-notch {
-      @apply w-[120px] h-6 bg-gray-900 absolute top-0 left-1/2 -translate-x-1/2 rounded-b-2xl z-20 flex items-center justify-center gap-2;
-  }
-  .phone-camera { @apply w-2 h-2 bg-gray-800 rounded-full; box-shadow: inset 0 0 2px rgba(255,255,255,0.2); }
-  .phone-speaker { @apply w-10 h-1 bg-gray-800 rounded-full; }
-}
-
-/* === Clases de Utilidad Personalizadas para Scroll === */
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
-      display: none;
+    display: none;
   }
   .no-scrollbar {
-      -ms-overflow-style: none;  /* IE and Edge */
-      scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
   }
+}
+
+html {
+  scroll-behavior: smooth !important;
+}
+
+body {
+  @apply bg-cream text-slate-900;
+}
+
+.premium-gradient {
+  background-image: linear-gradient(180deg, #F1F5F9 0%, #FEFBFB 100%);
+}
+
+.organic-card {
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.organic-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button {
+    padding: 1rem 2.5rem;
+    border-radius: 9999px;
+    transition: transform 0.2s;
+}
+
+.glass-icon-container {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+}
+
+.check-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 1rem;
+    border-radius: 20px;
+}
+
+.hero-title {
+    text-shadow: 0px 4px 15px rgba(13, 95, 180, 0.2);
 }

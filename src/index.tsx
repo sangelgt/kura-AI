@@ -3,9 +3,15 @@ import { createRoot } from 'react-dom/client';
 import App from './App';
 import './index.css';
 
-// biome-ignore lint/style/noNonNullAssertion: <explanation>
-createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+const container = document.getElementById('root');
+
+if (container) {
+  const root = createRoot(container);
+  root.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+} else {
+  console.error('No se encontró el elemento root en el DOM.');
+}

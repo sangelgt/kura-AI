@@ -101,7 +101,7 @@ const FeatureItem: React.FC<FeatureItemProps> = ({ title, description }) => {
 
 const PricingSection: React.FC = () => {
 
-  const handleCTAClick = async (e: React.MouseEvent<HTMLAnchorElement>, source: string) => { // Added async
+  const handleCTAClick = async (e: React.MouseEvent<HTMLAnchorElement>, source: string) => {
     e.preventDefault();
 
     // Supabase insert for Interacciones
@@ -120,22 +120,16 @@ const PricingSection: React.FC = () => {
       console.error('Error en la conexión a Supabase para interacciones:', error);
     }
 
-    const targetUrl = new URL(window.location.href);
-    targetUrl.searchParams.set('source', source);
-    window.history.pushState({ path: targetUrl.href }, '', targetUrl.href);
+    const element = document.getElementById('registro');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      window.history.pushState(null, '', '/#/registro');
+    }
 
     console.log('EVENT: CTA_CLICK', {
         event_category: 'Pricing',
         event_label: source,
     });
-
-    const registrationSection = document.getElementById('registro');
-    if (registrationSection) {
-      registrationSection.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
   };
 
   return (
@@ -149,14 +143,14 @@ const PricingSection: React.FC = () => {
                 <motion.div 
                     layout
                     key={index} 
-                    className={`clay-card p-8 flex flex-col relative overflow-hidden h-full ${plan.isRecommended ? 'border-2 border-[var(--sincro-blue)]/30 bg-white' : ''}`}
+                    className={`p-8 flex flex-col relative overflow-hidden h-full rounded-3xl shadow-xl backdrop-blur-md transition-all duration-300 ${plan.isRecommended ? 'border-2 border-[#0d5fb4]/30 bg-white/70 scale-105' : 'border border-slate-200 bg-white/50'}`}
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     viewport={{ once: true }}
                 >
                     {plan.isRecommended && (
-                        <div className="absolute top-0 right-0 bg-[var(--sincro-blue)] text-white text-[10px] font-bold uppercase tracking-widest px-6 py-2 rounded-bl-3xl z-10">Popular</div>
+                        <div className="absolute top-0 right-0 bg-[#0d5fb4] text-white text-[10px] font-bold uppercase tracking-widest px-6 py-2 rounded-bl-3xl z-10">Popular</div>
                     )}
                     
                     <div className="mb-6 text-center">
@@ -165,7 +159,7 @@ const PricingSection: React.FC = () => {
                     </div>
 
                     <div className="mb-8 text-center">
-                        <span className="text-4xl font-semibold text-[var(--sincro-blue)]">{plan.price}</span>
+                        <span className="text-4xl font-semibold text-[#0d5fb4]">{plan.price}</span>
                         {plan.priceUnit && <span className="block text-[var(--taupe)] text-xs mt-1">{plan.priceUnit}</span>}
                     </div>
 
@@ -193,14 +187,12 @@ const PricingSection: React.FC = () => {
                     </div>
                     
                     <a 
-                        href="#registro"
+                        href="/#/registro"
                         onClick={(e) => handleCTAClick(e, plan.id)}
-                        className={`w-full mt-auto py-3 px-6 rounded-full font-semibold text-center transition-all text-sm ${
+                        className={`w-full mt-auto py-3 px-6 rounded-full font-semibold text-center transition-all duration-300 text-sm ${
                         plan.isRecommended 
-                        ? 'bg-[var(--sincro-blue)] text-white hover:bg-blue-600 shadow-lg shadow-blue-500/20'
-                        : plan.name === 'SINCRO-ENTERPRISE' 
-                        ? 'border border-slate-700 text-slate-700 hover:bg-slate-800 hover:text-white'
-                        : 'border border-[var(--sincro-blue)] text-[var(--sincro-blue)] hover:bg-[var(--sincro-blue)] hover:text-white'
+                        ? 'bg-[#0d5fb4] text-white hover:bg-[#1a73d9] shadow-lg shadow-blue-500/20'
+                        : 'border border-slate-300 text-slate-700 hover:bg-slate-100 hover:shadow-md'
                     }`}>
                         {plan.buttonText}
                     </a>

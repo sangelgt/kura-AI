@@ -6,14 +6,14 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 // Definición de tipos para las rutas de navegación
 interface NavRoute {
   name: string;
-  href: string; // This will be the full hash link, e.g., '#hero'
-  targetId: string; // ID del elemento objetivo para hash links, e.g., 'hero'
+  href: string; 
+  targetId: string; 
 }
 
-// Rutas de navegación principales
+// Rutas de navegación principales corregidas
 const navRoutes: NavRoute[] = [
   { name: "INICIO", href: "#hero", targetId: "hero" },
-  { name: "EL DESAFÍO", href: "#desafio", targetId: "desafio" },
+  { name: "EL DESAFÍO", href: "#caos", targetId: "caos" },
   { name: "IA HUMANA", href: "#ia-humana", targetId: "ia-humana" },
   { name: "MÉTRICAS", href: "#metricas", targetId: "metricas" },
   { name: "PLANES", href: "#planes", targetId: "planes" },
@@ -22,22 +22,17 @@ const navRoutes: NavRoute[] = [
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
-  // isHomePage is determined by the pathname being exactly "/" (root of the application)
-  // This variable is no longer strictly necessary for handleNavClick but kept for potential future use or context.
-  // const isHomePage = location.pathname === "/";
 
-  // Efecto para cerrar el menú móvil si la ruta cambia
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [location.pathname]);
 
-  // Maneja el clic en los enlaces de navegación para smooth scroll y hash update
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     targetId: string
   ) => {
     e.preventDefault();
-    setMobileMenuOpen(false); // Close mobile menu on click
+    setMobileMenuOpen(false); 
 
     const element = document.getElementById(targetId);
     if (element) {
@@ -47,13 +42,13 @@ const Navbar = () => {
   };
 
   return (
-    <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-7xl rounded-[40px] bg-white/70 backdrop-blur-md shadow-lg p-6 lg:px-8">
+    <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-7xl rounded-[40px] bg-white/70 backdrop-blur-md border-b border-white/20 p-6 lg:px-8">
       <nav
         className="flex items-center justify-between"
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
-          <Link to="/" className="-m-1.5 p-1.5">
+          <Link to="/" onClick={(e) => handleNavClick(e, 'hero')} className="-m-1.5 p-1.5">
             <span className="sr-only">Kura AI</span>
             <img
               width={32}
@@ -106,7 +101,7 @@ const Navbar = () => {
         <div className="fixed inset-0 z-50" />
         <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <Link to="/" className="-m-1.5 p-1.5">
+            <Link to="/" onClick={(e) => handleNavClick(e, 'hero')} className="-m-1.5 p-1.5">
               <span className="sr-only">Kura AI</span>
               <img
                 width={32}

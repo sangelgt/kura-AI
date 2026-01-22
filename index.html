@@ -2,14 +2,33 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Content-Security-Policy" content="
+     default-src 'self' http://0.0.0.0:* http://localhost:*;
+     script-src 'self' 'unsafe-inline' 'unsafe-eval' http://0.0.0.0:* http://localhost:* https://vercel.live https://*.vercel.app https://va.vercel-scripts.com;
+     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+     img-src 'self' data: https://*.supabase.co https://vsqizpnyisdtmshvshre.supabase.co https://ddnnmcfbgqnhcuozurio.supabase.co;
+     font-src 'self' data: https://fonts.gstatic.com;
+     connect-src 'self' http://0.0.0.0:* http://localhost:* ws://0.0.0.0:* ws://localhost:* https://*.supabase.co https://*.vercel-insights.com https://*.vercel-analytics.com;
+     object-src 'none';
+     base-uri 'self';
+     form-action 'self';
+   ">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kura AI - Gestión Médica Inteligente</title>
     <meta name="description" content="Transforme el caos administrativo de su clínica. Automatice su agenda, reduzca inasistencias un 40% y recupere su valioso tiempo. Inicie su prueba gratuita.">
     <link rel="icon" type="image/webp" href="https://ddnnmcfbgqnhcuozurio.supabase.co/storage/v1/object/public/sincrohealth/logos/Favicon.webp">
-    <link rel="preload" href="https://ddnnmcfbgqnhcuozurio.supabase.co/storage/v1/object/public/sincrohealth/baner%20/%20fondos%20/banner.webp" as="image">
+    <link rel="canonical" href="https://kuraai.vercel.app/" />
+    
+    <!-- Preload responsivo para la imagen del Hero -->
+    <link rel="preload" as="image" href="https://ddnnmcfbgqnhcuozurio.supabase.co/storage/v1/object/public/sincrohealth/baner%20/%20fondos%20/banner.webp" fetchpriority="high" imagesrcset="https://ddnnmcfbgqnhcuozurio.supabase.co/storage/v1/object/public/sincrohealth/baner%20/%20fondos%20/banner-mobile.webp 768w, https://ddnnmcfbgqnhcuozurio.supabase.co/storage/v1/object/public/sincrohealth/baner%20/%20fondos%20/banner.webp 1280w" imagesizes="(max-width: 768px) 100vw, 100vw">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" /></noscript>
+
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
     <meta name="theme-color" content="#137fec">
     <link rel="manifest" href="/manifest.json">

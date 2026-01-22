@@ -19,7 +19,10 @@ const AnimatedPhone: React.FC = () => {
       {/* Pantalla Interactiva con Scroll */}
       <div className="absolute inset-2 bg-black rounded-[32px] overflow-hidden z-10">
         <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-28 h-5 bg-black rounded-full z-30"></div> {/* Isla dinámica */}
-        <div className="absolute inset-0 overflow-y-auto no-scrollbar overscroll-contain">
+        <div 
+            className="absolute inset-0 overflow-y-auto no-scrollbar overscroll-contain"
+            style={{ WebkitOverflowScrolling: 'touch' }}
+        >
             <img
               src={imageUrl}
               className="w-full h-auto object-top"

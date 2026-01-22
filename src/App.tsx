@@ -33,9 +33,9 @@ const App: React.FC = () => {
           </Routes>
         </main>
         <Footer />
+        <SpeedInsights />
+        <Analytics />
       </div>
-      <SpeedInsights />
-      <Analytics />
     </Router>
   );
 };
