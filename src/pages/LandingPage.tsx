@@ -53,33 +53,18 @@ const LandingPage: React.FC = () => {
     }
   }, [location.hash]);
 
-  const handleScroll = (id: string) => {
-    const target = document.getElementById(id.replace("#", ""));
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
-      window.history.pushState(null, "", `/#${id.replace("#", "")}`);
-    }
-  };
-
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
-    handleScroll(id);
-  };
-
   return (
     <div className="text-slate-800 premium-gradient">
 
         <section id="hero" className="relative min-h-screen flex items-center justify-center pt-24 pb-12 overflow-hidden">
-           {/* Fondo de pantalla completa ESTÁTICO */}
-            <img
-                className="absolute inset-0 w-full h-full object-cover -z-10"
-                src="https://ddnnmcfbgqnhcuozurio.supabase.co/storage/v1/object/public/sincrohealth/baner%20/%20fondos%20/banner.webp"
-                alt="Fondo Tecnológico Kura AI"
-                width="1920"
-                height="1080"
-                fetchpriority="high"
-                loading="eager"
-            />
+           <img 
+             src="https://vsqizpnyisdtmshvshre.supabase.co/storage/v1/object/public/SincroHealth/banner.webp"
+             alt="Fondo Kura AI"
+             className="absolute inset-0 w-full h-full object-cover -z-10"
+             fetchPriority="high"
+             width="1920"
+             height="1080"
+           />
            <div className="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] bg-blue-100/30 rounded-full blur-[120px]"></div>
             <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-orange-50/50 rounded-full blur-[100px]"></div>
             <div className="max-w-5xl mx-auto px-6 relative z-10">
@@ -91,16 +76,11 @@ const LandingPage: React.FC = () => {
                         Elevando la gestión médica hacia una experiencia de serenidad y rentabilidad sincronizada.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                        <a href="#registro" className="cta-button bg-[var(--sincro-blue)] text-white text-lg font-medium hover:scale-105 shadow-2xl shadow-blue-500/30 text-center" onClick={(e) => handleNavClick(e, 'registro')}>
+                        <a href="#registro" className="cta-button bg-[var(--sincro-blue)] text-white text-lg font-medium hover:scale-105 shadow-2xl shadow-blue-500/30 text-center">
                             Solicitar Prueba Gratuita
                         </a>
-                        <a
-                            className="text-[var(--taupe)] font-semibold flex items-center gap-2 hover:translate-x-1 transition-transform"
-                            href="#ia-humana"
-                            onClick={(e) => handleNavClick(e, "ia-humana")}
-                            aria-label="Conocer más sobre la IA Humana de Kura"
-                        >
-                            Conoce nuestra IA Humana <span className="material-symbols-outlined">arrow_forward</span>
+                        <a href="#ia-humana" className="text-[var(--taupe)] hover:text-slate-900 transition-colors flex items-center gap-2">
+                          Conoce nuestra IA Humana →
                         </a>
                     </div>
                 </div>
@@ -165,7 +145,7 @@ const LandingPage: React.FC = () => {
                             <p className="text-[var(--deep-navy)] mb-12 text-lg font-light">Nuestros resultados no solo son números; son minutos recuperados para lo que realmente importa: la atención al paciente.</p>
                             <div className="grid grid-cols-2 gap-12">
                                 {metrics.map(metric => (
-                                    <div key={metric.label}>\
+                                    <div key={metric.label}>
                                         <p className="text-5xl font-light text-[var(--sincro-blue)] mb-2">{metric.value}</p>
                                         <p className="text-xs text-[var(--deep-navy)] uppercase tracking-widest font-bold">{metric.label}</p>
                                         <p className="text-[10px] text-[var(--deep-navy)] mt-2">{metric.sublabel}</p>
@@ -190,14 +170,14 @@ const LandingPage: React.FC = () => {
         </section>
 
         <section id="registro" className="relative min-h-screen flex items-center py-20 px-6">
-            <img
-              src="https://ddnnmcfbgqnhcuozurio.supabase.co/storage/v1/object/public/sincrohealth/baner%20/%20fondos%20/Fondo%20de%20Dashboard.webp"
-              alt="Fondo Dashboard Kura AI"
-              className="absolute inset-0 w-full h-full object-cover -z-20 opacity-100"
-              width="1920"
-              height="1080"
-              loading="lazy"
-            />
+        <img 
+          src="https://vsqizpnyisdtmshvshre.supabase.co/storage/v1/object/public/SincroHealth/Fondo%20de%20Dashboard.webp"
+          alt="Dashboard Background"
+          className="absolute inset-0 w-full h-full object-cover -z-10"
+          loading="lazy"
+          width="1920"
+          height="1080"
+        />
 
             <div className="max-w-7xl mx-auto relative z-10">
                 <div className="text-center mb-16">
