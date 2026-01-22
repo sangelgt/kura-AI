@@ -137,7 +137,7 @@ const LandingPage: React.FC = () => {
                                 e.preventDefault();
                                 handleScroll("#ia-humana");
                             }}
-                            aria-label="Conocer más sobre la IA Humana de SincroHealth"
+                            aria-label="Conocer más sobre la IA Humana de Kura"
                         >
                             Conoce nuestra IA Humana <span className="material-symbols-outlined">arrow_forward</span>
                         </a>
@@ -252,7 +252,7 @@ const LandingPage: React.FC = () => {
                             </div>
                         ))}
                         <div className="mt-8 p-6 rounded-[40px] border border-blue-100 bg-black/60 backdrop-blur-sm">
-                            <p className="text-white text-sm italic leading-relaxed">"La integración con SincroHealth nos permitió recuperar el enfoque clínico en menos de una semana. La carga administrativa simplemente desapareció."</p>
+                            <p className="text-white text-sm italic leading-relaxed">"La integración con Kura nos permitió recuperar el enfoque clínico en menos de una semana. La carga administrativa simplemente desapareció."</p>
                             <div className="mt-4 flex items-center gap-3">
                                 <div className="w-8 h-8 rounded-full bg-slate-200"></div>
                                 <span className="text-xs font-bold text-white">Dr. M. Arrieta, Director Médico</span>
