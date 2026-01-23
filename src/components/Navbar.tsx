@@ -54,8 +54,9 @@ const Navbar = () => {
               width={32}
               height={32}
               className="h-8 w-auto"
-              src="https://ddnnmcfbgqnhcuozurio.supabase.co/storage/v1/object/public/sincrohealth/logos/kuraAIisotipo.png"
+              src="https://ddnnmcfbgqnhcuozurio.supabase.co/storage/v1/object/public/sincrohealth/logos/kuraAIisotipo.webp"
               alt="Kura AI Logo"
+              decoding="async"
             />
           </Link>
         </div>
@@ -107,8 +108,9 @@ const Navbar = () => {
                 width={32}
                 height={32}
                 className="h-8 w-auto"
-                src="https://ddnnmcfbgqnhcuozurio.supabase.co/storage/v1/object/public/sincrohealth/logos/kuraAIisotipo.png"
+                src="https://ddnnmcfbgqnhcuozurio.supabase.co/storage/v1/object/public/sincrohealth/logos/kuraAIisotipo.webp"
                 alt="Kura AI Logo"
+                decoding="async"
               />
             </Link>
             <button
