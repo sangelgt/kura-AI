@@ -68,13 +68,15 @@ interface FeatureItemProps {
 }
 
 const FeatureItem: React.FC<FeatureItemProps> = ({ title, description }) => {
-    const [isHovered, setIsHovered] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    const toggleExpanded = () => setIsExpanded(!isExpanded);
 
     return (
         <motion.li
-            layout
-            onHoverStart={() => setIsHovered(true)}
-            onHoverEnd={() => setIsHovered(false)}
+            onHoverStart={() => setIsExpanded(true)}
+            onHoverEnd={() => setIsExpanded(false)}
+            onClick={toggleExpanded} // Add onClick for mobile/tap
             className="flex flex-col gap-1 text-sm text-slate-700 cursor-pointer"
         >
             <div className="flex items-start gap-3">
@@ -82,12 +84,12 @@ const FeatureItem: React.FC<FeatureItemProps> = ({ title, description }) => {
                 <span className="font-medium">{title}</span>
             </div>
             <AnimatePresence>
-            {isHovered && (
+            {isExpanded && (
                 <motion.div
-                    layout
-                    initial={{ opacity: 0, y: -5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -5, transition: { duration: 0.2 } }}
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="pl-8 pr-2 text-slate-500 text-xs"
                 >
                     {description}
@@ -160,7 +162,7 @@ const PricingSection: React.FC = () => {
 
                     <div className="mb-8 text-center">
                         <span className="text-4xl font-semibold text-[#0d5fb4]">{plan.price}</span>
-                        {plan.priceUnit && <span className="block text-[var(--taupe)] text-xs mt-1">{plan.priceUnit}</span>}
+                        {plan.priceUnit && <span className="block text-[var(--taupe)] text-xs mt-1">N/{plan.priceUnit}</span>}
                     </div>
 
                     <div className="flex-grow mb-8">
