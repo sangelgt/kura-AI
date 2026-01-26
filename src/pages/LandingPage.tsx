@@ -66,34 +66,34 @@ const LandingPage: React.FC = () => {
   return (
     <div className="text-slate-800 premium-gradient">
 
-        <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center pt-24 pb-12 overflow-hidden px-6">
+        <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center pt-24 pb-12 overflow-hidden px-4 sm:px-6">
            <img src="https://ddnnmcfbgqnhcuozurio.supabase.co/storage/v1/object/public/sincrohealth/baner%20/%20fondos%20/banner.webp" fetchPriority="high" loading="eager" decoding="async" alt="Software de IA para la gestión de clínicas médicas" className="absolute inset-0 w-full h-full object-cover z-0" />
            <div className="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] bg-blue-100/30 rounded-full blur-[120px]"></div>
             <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-orange-50/50 rounded-full blur-[100px]"></div>
-            <div className="max-w-5xl mx-auto relative z-20">
-                <div className="bg-white/40 backdrop-blur-md rounded-3xl border border-white/30 shadow-2xl p-8 md:p-12 max-w-4xl mx-auto text-center">
-                <h1 className="hero-title text-5xl md:text-7xl font-light text-slate-900 mb-6">
-                                Llena tu agenda y reduce el caos administrativo con{' '}
-                                <span className="text-[#137fec] min-w-[320px] inline-block">
-                                    <Typewriter
-                                        options={{
-                                            loop: true,
-                                            wrapperClassName: "text-[#137fec]",
-                                            cursorClassName: "text-[#137fec]"
-                                        }}
-                                        onInit={(typewriter) => {
-                                            typewriter
-                                                .typeString('IA médica')
-                                                .pauseFor(1000)
-                                                .deleteAll()
-                                                .typeString('Kura AI')
-                                                .pauseFor(1000)
-                                                .start();
-                                        }}
-                                    />
-                                </span>
-                            </h1>
-                    <p className="text-xl md:text-2xl text-[var(--taupe)] font-light max-w-3xl mx-auto mb-12 leading-relaxed">
+            <div className="w-full max-w-5xl mx-auto relative z-20">
+                <div className="bg-white/40 backdrop-blur-md rounded-3xl border border-white/30 shadow-2xl p-6 sm:p-8 md:p-12 w-full max-w-4xl mx-auto text-center">
+                <h1 className="hero-title text-4xl sm:text-5xl md:text-7xl font-light text-slate-900 mb-6 break-words">
+                    Llena tu agenda y reduce el caos administrativo con{' '}
+                    <span className="text-[#137fec] min-w-[280px] md:min-w-[420px] inline-block">
+                        <Typewriter
+                            options={{
+                                loop: true,
+                                wrapperClassName: "text-[#137fec]",
+                                cursorClassName: "text-[#137fec]"
+                            }}
+                            onInit={(typewriter) => {
+                                typewriter
+                                    .typeString('IA médica')
+                                    .pauseFor(1000)
+                                    .deleteAll()
+                                    .typeString('Kura AI')
+                                    .pauseFor(1000)
+                                    .start();
+                            }}
+                        />
+                    </span>
+                </h1>
+                    <p className="text-lg sm:text-xl md:text-2xl text-[var(--taupe)] font-light max-w-3xl mx-auto mb-12 leading-relaxed">
                         Kura AI automatiza WhatsApp, recordatorios y agenda para médicos independientes y clínicas medianas, reduciendo ausentismo y liberando horas de trabajo cada semana.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
@@ -207,9 +207,10 @@ const LandingPage: React.FC = () => {
         />
 
             <div className="max-w-7xl mx-auto relative z-10 w-full">
-                <div className="text-center mb-16">
-                    <h2 className="text-4xl md:text-5xl font-light text-white mb-4 tracking-tight">Solicitar Prueba Gratuita</h2>
-                    <p className="text-white/80 font-medium text-sm opacity-90">Incluye diagnóstico operativo inicial.</p>
+                <div className="text-center mb-12">
+                    <h2 className="text-4xl md:text-5xl font-light text-white tracking-tight text-balance max-w-prose mx-auto">
+                        Agenda tu diagnóstico operativo gratuito y <span className="text-[#137fec] font-bold">comienza</span> a reducir el caos administrativo <span className="text-[#137fec] font-bold">desde este mes</span>
+                    </h2>
                 </div>
                 <div className="grid lg:grid-cols-12 gap-12 items-start">
                     <div className="lg:col-span-5 space-y-6 pt-4">
