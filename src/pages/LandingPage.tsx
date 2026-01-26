@@ -94,7 +94,7 @@ const LandingPage: React.FC = () => {
                     </span>
                 </h1>
                     <p className="text-lg sm:text-xl md:text-2xl text-[var(--taupe)] font-light max-w-3xl mx-auto mb-12 leading-relaxed">
-                        Kura AI automatiza WhatsApp, recordatorios y agenda para médicos independientes y clínicas medianas, reduciendo ausentismo y liberando horas de trabajo cada semana.
+                        Kura AI automatiza WhatsApp, recordatorios y agenda para médicos independientes, consultorios y clínicas, reduciendo ausentismo y liberando horas de trabajo cada semana.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
                         <a href="/#/registro" onClick={(e) => handleScroll(e, 'registro')} className="cta-button bg-[#0d5fb4] text-white text-lg font-medium hover:scale-105 shadow-2xl shadow-blue-500/30 text-center">
